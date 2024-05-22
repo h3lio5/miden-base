@@ -3,7 +3,6 @@ use std::{
     fs::{read_to_string, write, File},
     io::Write,
     path::Path,
-    rc::Rc,
 };
 
 use miden_lib::{
@@ -160,7 +159,7 @@ pub fn benchmark_p2id() -> Result<TransactionProgress, String> {
         sec_key.public_key().into(),
         AuthSecretKey::RpoFalcon512(sec_key),
     )]);
-    let authenticator = Some(Rc::new(authenticator));
+    let authenticator = Some(authenticator);
     let mut host =
         TransactionHost::new(transaction.account().into(), advice_recorder, authenticator);
 

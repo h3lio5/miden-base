@@ -156,9 +156,7 @@ pub fn prove_and_verify_transaction(
 
 #[cfg(test)]
 pub fn get_new_pk_and_authenticator(
-) -> (Word, std::rc::Rc<miden_tx::host::BasicAuthenticator<rand::rngs::StdRng>>) {
-    use std::rc::Rc;
-
+) -> (Word, miden_tx::host::BasicAuthenticator<rand::rngs::StdRng>) {
     use miden_tx::host::BasicAuthenticator;
     use rand::rngs::StdRng;
 
@@ -173,7 +171,7 @@ pub fn get_new_pk_and_authenticator(
         miden_tx::host::AuthSecretKey::RpoFalcon512(sec_key),
     )]);
 
-    (pub_key, Rc::new(authenticator))
+    (pub_key, authenticator)
 }
 
 #[cfg(test)]

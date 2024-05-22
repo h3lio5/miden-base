@@ -1,4 +1,4 @@
-use alloc::{collections::BTreeMap, rc::Rc, string::ToString, vec::Vec};
+use alloc::{collections::BTreeMap, string::ToString, vec::Vec};
 
 use miden_lib::transaction::{
     memory::{ACCT_STORAGE_ROOT_PTR, CURRENT_CONSUMED_NOTE_PTR},
@@ -55,7 +55,7 @@ pub struct TransactionHost<A, T> {
     output_notes: Vec<OutputNote>,
 
     /// Provides a way to get a signature for a message into a transaction
-    authenticator: Option<Rc<T>>,
+    authenticator: Option<T>,
 
     /// Contains the information about the number of cycles for each of the transaction execution
     /// stages.
@@ -67,7 +67,7 @@ pub struct TransactionHost<A, T> {
 
 impl<A: AdviceProvider, T: TransactionAuthenticator> TransactionHost<A, T> {
     /// Returns a new [TransactionHost] instance with the provided [AdviceProvider].
-    pub fn new(account: AccountStub, adv_provider: A, authenticator: Option<Rc<T>>) -> Self {
+    pub fn new(account: AccountStub, adv_provider: A, authenticator: Option<T>) -> Self {
         let proc_index_map = AccountProcedureIndexMap::new(account.code_root(), &adv_provider);
         Self {
             adv_provider,
