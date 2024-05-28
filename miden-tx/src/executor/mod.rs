@@ -1,4 +1,4 @@
-use alloc::{rc::Rc, vec::Vec};
+use alloc::{sync::Arc, vec::Vec};
 
 use miden_lib::transaction::{ToTransactionKernelInputs, TransactionKernel};
 use miden_objects::{
@@ -37,7 +37,7 @@ pub use data_store::DataStore;
 /// can then be used to by the prover to generate a proof transaction execution.
 pub struct TransactionExecutor<D, A> {
     data_store: D,
-    authenticator: Option<Rc<A>>,
+    authenticator: Option<Arc<A>>,
     compiler: TransactionCompiler,
     exec_options: ExecutionOptions,
 }
@@ -47,7 +47,7 @@ impl<D: DataStore, A: TransactionAuthenticator> TransactionExecutor<D, A> {
     // --------------------------------------------------------------------------------------------
 
     /// Creates a new [TransactionExecutor] instance with the specified [DataStore] and [TransactionAuthenticator].
-    pub fn new(data_store: D, authenticator: Option<Rc<A>>) -> Self {
+    pub fn new(data_store: D, authenticator: Option<Arc<A>>) -> Self {
         Self {
             data_store,
             authenticator,
